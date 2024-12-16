@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from './use-toast';
 import { cn } from '@/lib/utils';
-import { gameConfig } from '../../lib/game';
+import { gameConfig } from './gameConfig';
+import React from 'react';
 
 declare global {
   interface Window {

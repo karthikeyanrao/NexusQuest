@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { Bird } from './Bird';
 import { Pipe } from './Pipe';
-import { gameConfig } from '../../lib/game';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { scoreAtom } from '@/store/atoms/game';
+import { gameConfig } from './gameConfig';
+import { useRecoilState } from 'recoil';
+import { scoreAtom } from './game';
+import React from 'react';
 
 interface CanvasProps {
   isPlaying: boolean;
@@ -11,17 +12,15 @@ interface CanvasProps {
 }
 
 export function Canvas({ isPlaying, onGameOver }: CanvasProps) {
-  const [score, setScore] = useRecoilState(scoreAtom);
+  const [score, setScore] = useRecoilState(scoreAtom); // Get and set score from Recoil
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameRef = useRef<{
     bird: Bird;
     pipes: Pipe[];
-    score: number;
     animationFrame: number;
-  }>({
+  }>( {
     bird: new Bird(),
     pipes: [],
-    score: 0,
     animationFrame: 0,
   });
 
@@ -38,8 +37,6 @@ export function Canvas({ isPlaying, onGameOver }: CanvasProps) {
     const game = gameRef.current;
     game.bird = new Bird();
     game.pipes = [];
-    game.score = 0;
-
     let lastPipeSpawn = 0;
 
     const gameLoop = (timestamp: number) => {
@@ -60,11 +57,10 @@ export function Canvas({ isPlaying, onGameOver }: CanvasProps) {
         pipe.update();
         pipe.draw(ctx);
 
-        // Score point if bird passes pipe
+        // Update score if bird passes pipe
         if (!pipe.passed && pipe.x + pipe.width < game.bird.x) {
           pipe.passed = true;
-          game.score++;
-          setScore(game.score);
+          setScore(prevScore => prevScore + 1); // Increment the score using Recoil state
         }
 
         return pipe.x + pipe.width > 0;
@@ -74,11 +70,12 @@ export function Canvas({ isPlaying, onGameOver }: CanvasProps) {
       game.bird.update();
       game.bird.draw(ctx);
 
-      // Check collisions
+      // Check for collisions
       const collision = game.pipes.some(pipe => pipe.checkCollision(game.bird));
       if (collision || game.bird.y > canvas.height || game.bird.y < 0) {
-        onGameOver(game.score);
-        setScore(0);
+        // Make sure to pass the current score at the moment of game over
+        onGameOver(score);
+        setScore(0); // Reset the score
         return;
       }
 
@@ -92,7 +89,7 @@ export function Canvas({ isPlaying, onGameOver }: CanvasProps) {
     return () => {
       cancelAnimationFrame(game.animationFrame);
     };
-  }, [isPlaying, onGameOver]);
+  }, [isPlaying, onGameOver, score, setScore]); // Ensure dependencies are accurate
 
   return (
     <canvas

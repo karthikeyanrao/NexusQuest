@@ -2,8 +2,8 @@ import { Program } from "@coral-xyz/anchor";
 import { useMemo } from "react";
 import * as anchor from "@coral-xyz/anchor";
 import { BN } from "@coral-xyz/anchor";
-import { Solana } from "@/contracts/moonrace";
-import IDL from "E:/moonrace/contracts/moonrace.json";
+import { Solana } from "@/contracts/nexusquest";
+import IDL from "./nexusquest";
 import { Transaction, PublicKey, ComputeBudgetProgram } from "@solana/web3.js";
 import {
   createAssociatedTokenAccountInstruction,
@@ -147,10 +147,6 @@ export function useSolanaProgram() {
       } else {
         console.log("Vault account is there");
       }
-      // console.log(`id: ${id}`);
-      // console.log(`mint: ${mint.toString()}`);
-      // console.log(`vault: ${vault.toString()}`);
-      // console.log(`wallet: ${provider.wallet.publicKey.toString()}`);
       const instruction = await program.methods
         .claimSplSolana(new anchor.BN(id))
         .accounts({

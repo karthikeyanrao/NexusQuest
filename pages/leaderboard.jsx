@@ -11,10 +11,10 @@ export default function Leaderboard() {
     yourScore:297,
     yourRank: 3,
     topPlayers: [
-      { rank: 1, username: 'padmaja', score: 247, prize: '10 SUI' },
-      { rank: 2, username: 'Rakshika', score: 232, prize: '7 SUI' },
+      { rank: 1, username: 'Karthikeyan', score: 247, prize: '10 SUI' },
+      { rank: 2, username: 'Padmaja', score: 232, prize: '7 SUI' },
       { rank: 3, username: 'Harsha', score: 186, prize: '5 SUI' },
-      { rank: 4, username: 'Karthikeyan', score: 175, prize: '2 SUI' },
+      { rank: 4, username: 'Rakshika', score: 175, prize: '2 SUI' },
       { rank: 5, username: 'gamer', score: 164, prize: '1 SUI' },
     ]
   });

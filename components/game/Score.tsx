@@ -1,7 +1,7 @@
 // import React from 'react';
-// import { Card } from '@/components/ui/card';
+// import { Card } from './Card';
 // import { useRecoilValue } from 'recoil';
-// import { scoreAtom } from '@/store/atoms/game';
+// import { scoreAtom } from './game';
 
 // interface ScoreProps {
 //   high: number;

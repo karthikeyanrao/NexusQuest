@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import CardSlider from "@/components/Card/CardSlider";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FaGamepad, FaTrophy, FaFire, FaUsers, FaBolt, FaBullseye } from "react-icons/fa";
+import { FaGamepad, FaTrophy, FaFire, FaUsers, FaBolt, FaBullseye,FaAngleDoubleUp,FaAngleDoubleDown } from "react-icons/fa";
 
 export default function Home() {
   const router = useRouter();
@@ -33,8 +33,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative"
-          >
+            className="relative" >
             <CardSlider />
           </motion.div>
           <motion.div 
@@ -47,61 +46,61 @@ export default function Home() {
             <motion.div 
               variants={cardVariants}
               whileHover="hover"
-              className="bg-gradient-to-br from-green-400/90 to-emerald-600/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-emerald-300/50 backdrop-blur-sm hover:shadow-emerald-500/30 hover:shadow-2xl transition-all duration-300"
+              className="bg-gradient-to-br from-green-500/90 to-lime-700/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-green-400/50 backdrop-blur-sm hover:shadow-lime-500/30 hover:shadow-2xl transition-all duration-300"
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center gap-3 mb-4">
                   <FaGamepad className="text-3xl text-emerald-200" />
-                  <h3 className="text-2xl font-bold text-white">Beginner</h3>
+                  <h3 className="text-2xl font-bold text-white">Begin</h3>
                 </div>
-                <p className="text-emerald-100 leading-relaxed flex-grow">Perfect for those just starting out. Learn the basics of betting in a risk-free environment.</p>
+                <p className="text-emerald-100 leading-relaxed flex-grow">Prefect for those just starting out.Learn the basics of betting in a risk-free environment</p>
                 <button onClick={() => handleGameSelect('Beginner')} className="mt-4 bg-white/90 text-emerald-600 font-bold py-3 px-6 rounded-xl hover:bg-white transition-colors duration-200 group flex items-center justify-center gap-2">
-                  Start Your Journey <FaGamepad className="group-hover:rotate-12 transition-transform duration-300" />
+                  Choose Mode <FaGamepad className="group-hover:rotate-12 transition-transform duration-300" />
                 </button>
               </div>
             </motion.div>
 
-            {/* Intermediate Card */}
+            {/* Challenge Card */}
             <motion.div 
               variants={cardVariants}
               whileHover="hover"
-              className="bg-gradient-to-br from-blue-400/90 to-indigo-600/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-blue-300/50 backdrop-blur-sm hover:shadow-blue-500/30 hover:shadow-2xl transition-all duration-300"
+              className="bg-gradient-to-br from-green-400/90 to-teal-600/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-teal-400/50 backdrop-blur-sm hover:shadow-emerald-600/30 hover:shadow-2xl transition-all duration-300"
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center gap-3 mb-4">
                   <FaTrophy className="text-3xl text-blue-200" />
-                  <h3 className="text-2xl font-bold text-white">Intermediate</h3>
+                  <h3 className="text-2xl font-bold text-white">Challenge</h3>
                 </div>
                 <p className="text-blue-100 leading-relaxed flex-grow">Ready for more challenge? Test your improved skills with moderate difficulty.</p>
                 <button onClick={() => handleGameSelect('Intermediate')} className="mt-4 bg-white/90 text-indigo-600 font-bold py-3 px-6 rounded-xl hover:bg-white transition-colors duration-200 group flex items-center justify-center gap-2">
-                  Level Up! <FaTrophy className="group-hover:scale-110 transition-transform duration-300" />
+                Accept Challenge <FaTrophy className="group-hover:scale-110 transition-transform duration-300" />
                 </button>
               </div>
             </motion.div>
 
-            {/* Advanced Card */}
+            {/* Season Card */}
             <motion.div 
               variants={cardVariants}
               whileHover="hover"
-              className="bg-gradient-to-br from-purple-400/90 to-fuchsia-600/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-purple-300/50 backdrop-blur-sm hover:shadow-purple-500/30 hover:shadow-2xl transition-all duration-300"
+              className="bg-gradient-to-br from-purple-500/90 to-indigo-700/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-indigo-400/50 backdrop-blur-sm hover:shadow-purple-600/30 hover:shadow-2xl transition-all duration-300"
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center gap-3 mb-4">
                   <FaFire className="text-3xl text-purple-200" />
-                  <h3 className="text-2xl font-bold text-white">Advanced</h3>
+                  <h3 className="text-2xl font-bold text-white">Season </h3>
                 </div>
                 <p className="text-purple-100 leading-relaxed flex-grow">For experienced players. Face tough opponents and complex betting scenarios.</p>
                 <button onClick={() => handleGameSelect('Advanced')} className="mt-4 bg-white/90 text-fuchsia-600 font-bold py-3 px-6 rounded-xl hover:bg-white transition-colors duration-200 group flex items-center justify-center gap-2">
-                  Accept Challenge <FaFire className="group-hover:scale-110 transition-transform duration-300" />
+                 Level Up  <FaFire className="group-hover:scale-110 transition-transform duration-300" />
                 </button>
               </div>
             </motion.div>
 
-            {/* Play with Friends Card */}
+            {/* Play with Squad Card */}
             <motion.div 
               variants={cardVariants}
               whileHover="hover"
-              className="bg-gradient-to-br from-orange-400/90 to-red-600/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-orange-300/50 backdrop-blur-sm hover:shadow-orange-500/30 hover:shadow-2xl transition-all duration-300"
+              className="bg-gradient-to-br from-orange-500/90 to-crimson-700/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-red-400/50 backdrop-blur-sm hover:shadow-orange-600/30 hover:shadow-2xl transition-all duration-300"
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center gap-3 mb-4">
@@ -115,11 +114,11 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Random Matchmaking Card */}
+            {/* Quick Card */}
             <motion.div 
               variants={cardVariants}
               whileHover="hover"
-              className="bg-gradient-to-br from-yellow-400/90 to-amber-600/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-yellow-300/50 backdrop-blur-sm hover:shadow-yellow-500/30 hover:shadow-2xl transition-all duration-300"
+              className="bg-gradient-to-br from-yellow-500/90 to-gold-600/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-yellow-400/50 backdrop-blur-sm hover:shadow-amber-500/30 hover:shadow-2xl transition-all duration-300"
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center gap-3 mb-4">
@@ -137,7 +136,7 @@ export default function Home() {
             <motion.div 
               variants={cardVariants}
               whileHover="hover"
-              className="bg-gradient-to-br from-teal-400/90 to-cyan-600/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-teal-300/50 backdrop-blur-sm hover:shadow-teal-500/30 hover:shadow-2xl transition-all duration-300"
+              className="bg-gradient-to-br from-teal-500/90 to-blue-700/90 rounded-2xl shadow-lg p-8 cursor-pointer border-2 border-cyan-400/50 backdrop-blur-sm hover:shadow-blue-500/30 hover:shadow-2xl transition-all duration-300"
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center gap-3 mb-4">

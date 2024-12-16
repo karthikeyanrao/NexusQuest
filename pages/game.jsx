@@ -106,8 +106,8 @@ const GamePage = () => {
       ownerName: userName,
       desc: desc,
     };
-    // console.log("CreateLifafaData: ", createLifafaData);
-    // console.log("walletpublickey", walletPublicKey.toString());
+     console.log("CreateLifafaData: ", createLifafaData);
+     console.log("walletpublickey", walletPublicKey.toString());
     try {
       const rawTxn = await createStake(
         createStakeData.id,
@@ -137,7 +137,7 @@ const GamePage = () => {
     setShowModal(false);
     try {
       handleStake();
-      window.location.href = 'http://localhost:3000/play';
+      window.location.href = 'http://localhost:3000/';
     } catch (error) {
       console.error("handleStake: ", error);
     }
@@ -173,7 +173,7 @@ const GamePage = () => {
           </div>
           <p className="text-indigo-300 flex items-center justify-center gap-2">
             <FaRegClock className="animate-spin-slow" />
-            Games start every 5 minutes
+            Games start every 3 minutes
           </p>
         </motion.div>
 

@@ -1,4 +1,4 @@
-import { gameConfig } from '../../lib/game';
+import { gameConfig } from './gameConfig';
 import type { Bird } from './Bird';
 
 export class Pipe {

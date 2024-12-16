@@ -9,18 +9,18 @@ const BetsHistory = () => {
       tournamentId: "T-2024-001",
       matchId: "M-458",
       stake: 50,
-      rank: 2,
-      score: 89,
-      highestScore: 92,
-      profit: 120,
+      rank: 3,
+      score: 57,
+      highestScore: 62,
+      profit: 60,
       status: "won"
     },
     {
       tournamentId: "T-2024-002", 
       matchId: "M-461",
       stake: 30,
-      rank: 5,
-      score: 75,
+      rank: 15,
+      score: 25,
       highestScore: 95,
       profit: -30,
       status: "lost"
@@ -32,7 +32,7 @@ const BetsHistory = () => {
       rank: 1,
       score: 98,
       highestScore: 98,
-      profit: 225,
+      profit: 250,
       status: "won"
     },
     {
@@ -50,19 +50,19 @@ const BetsHistory = () => {
       matchId: "M-459", 
       stake: 45,
       rank: 1,
-      score: 98,
-      highestScore: 98,
-      profit: 225,
+      score: 90,
+      highestScore: 90,
+      profit: 270,
       status: "won"
     },
     {
       tournamentId: "T-2024-032",
       matchId: "M-459", 
-      stake: 45,
-      rank: 1,
-      score: 98,
+      stake: 70,
+      rank: 2,
+      score: 97,
       highestScore: 98,
-      profit: 225,
+      profit: 200,
       status: "won"
     },
     {
