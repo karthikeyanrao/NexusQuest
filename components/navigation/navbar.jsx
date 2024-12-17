@@ -1,100 +1,118 @@
-import Image from "next/image";
-import Link from "next/link";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-import logo from "../../public/images/logo-betting.png";
+import { useWeb3React } from "@web3-react/core";
+import { InjectedConnector } from "@web3-react/injected-connector";
+import Image from "next/image";
 import { CgProfile } from "react-icons/cg";
-import {ConnectButton} from '@suiet/wallet-kit';
+import Link from "next/link";
 
-const style = {
-    wrapper: `bg-gradient-to-r from-gray-900 via-black to-gray-900 w-screen px-[1.2rem] py-[0.8rem] flex justify-between border-b border-[#F3BA2F] shadow-[0_4px_12px_rgba(243,186,47,0.3)]`,
-    logoContainer: `flex items-center cursor-pointer hover:opacity-90 transition-all duration-300`,
-    logoText: `ml-[0.8rem] text-transparent bg-clip-text bg-gradient-to-r from-[#F3BA2F] to-[#FFD700] font-semibold text-2xl`,
-    headerItems: `font-Outfit font-light flex items-center`,
-    headerItem: `font-Outfit text-white bg-clip-text bg-gradient-to-r from-gray-300 to-white px-4 font-bold hover:from-[#F3BA2F] hover:to-[#FFD700] cursor-pointer transition-all duration-300`,
-    headerIcon: `text-[#8a939b] text-3xl font-black px-4 hover:text-[#F3BA2F] cursor-pointer transition-colors duration-300`,
+// Define the injected connector (MetaMask)
+const injected = new InjectedConnector({
+  supportedChainIds: [1, 3, 4, 5, 42], // Ethereum mainnet and testnets
+});
+
+const Navbar = () => {
+  const { activate, deactivate, account, active } = useWeb3React();
+  const router = useRouter();
+  const [error, setError] = useState("");
+
+  // MetaMask installation check
+  useEffect(() => {
+    if (typeof window !== "undefined" && !window.ethereum) {
+      alert("MetaMask is not installed. Please install it.");
+    }
+  }, []);
+
+  const connectWallet = async () => {
+    if (typeof window !== "undefined" && window.ethereum) {
+      try {
+        await activate(injected);
+        setError(""); // Clear any previous errors
+      } catch (error) {
+        console.error("Connection failed:", error);
+        setError("Failed to connect wallet.");
+      }
+    } else {
+      alert("MetaMask is not installed. Please install it.");
+    }
+  };
+
+  const disconnectWallet = () => {
+    deactivate();
+  };
+
+  return (
+    <div className="p-4 flex justify-between items-center bg-black text-white h-24">
+      {/* Logo Section */}
+      <Link href="/">
+        <div className="flex items-center cursor-pointer">
+          <Image
+            src="/images/logo-betting.png"
+            height={85}
+            width={220}
+            alt="Logo"
+            className="object-contain"
+          />
+        </div>
+      </Link>
+
+      {/* Navigation Links */}
+      <div className="flex space-x-12">
+        <div
+          className="cursor-pointer text-lg font-semibold hover:text-[#F3BA2F] transition-colors"
+          onClick={() => router.push("/")}
+        >
+          Explore
+        </div>
+        <div
+          className="cursor-pointer text-lg font-semibold hover:text-[#F3BA2F] transition-colors"
+          onClick={() => router.push("/mybets")}
+        >
+          MyBets
+        </div>
+        <div
+          className="cursor-pointer text-lg font-semibold hover:text-[#F3BA2F] transition-colors"
+          onClick={() => router.push("/leaderboard")}
+        >
+          Leaderboard
+        </div>
+        <div
+          className="cursor-pointer text-lg font-semibold hover:text-[#F3BA2F] transition-colors flex items-center"
+          onClick={() => router.push("/profile")}
+        >
+          <CgProfile size={28} className="mr-2" />
+          Profile
+        </div>
+      </div>
+
+      {/* Wallet Connection Section */}
+      <div>
+        {!active ? (
+          <button
+            className="px-6 py-3 bg-[#F3BA2F] text-black font-bold rounded-full hover:scale-105 transition-transform"
+            onClick={connectWallet}
+          >
+            Connect MetaMask
+          </button>
+        ) : (
+          <div className="flex items-center">
+            <p className="mr-4 font-semibold text-sm">
+              Connected: {account?.substring(0, 6)}...{account?.substring(account.length - 4)}
+            </p>
+            <button
+              onClick={disconnectWallet}
+              className="px-6 py-3 bg-red-500 text-white font-bold rounded-full hover:scale-105 transition-transform"
+            >
+              Disconnect
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Error Message */}
+      {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
+    </div>
+  );
 };
 
-export default function Navbar() {
-    const router = useRouter();
-    const [navbar, setNavbar] = useState(false);
-
-    return (
-        <div className={style.wrapper}>
-            <Link href="/">
-                <div className={style.logoContainer}>
-                    <Image 
-                        src={logo} 
-                        height={60} 
-                        width={180} 
-                        alt="mantle logo"
-                        className="object-contain" 
-                    />
-                    <div className={style.logoText}></div>
-                </div>
-            </Link>
-
-            {/* HAMBURGER BUTTON FOR MOBILE */}
-            <div className="md:hidden">
-                <button
-                    className="p-2 text-[#F3BA2F] rounded-md outline-none focus:border-[#F3BA2F] focus:border"
-                    onClick={() => setNavbar(!navbar)}
-                >
-                    {navbar ? (
-                        <Image src="/close.svg" width={30} height={30} alt="logo" className="filter invert" />
-                    ) : (
-                        <Image
-                            src="/hamburger-menu.svg"
-                            width={30}
-                            height={30}
-                            alt="logo"
-                            className="filter invert focus:border-none active:border-none"
-                        />
-                    )}
-                </button>
-            </div>
-
-            <div className={style.headerItems}>
-                <div
-                    className={style.headerItem}
-                    onClick={() => {
-                        router.push("/");
-                    }}
-                >
-                    Explore
-                </div>
-
-                <div
-                    className={style.headerItem}
-                    onClick={() => {
-                        router.push("/mybets");
-                    }}
-                >
-                    MyBets
-                </div>
-
-                <div
-                    className={style.headerItem}
-                    onClick={() => {
-                        router.push("/leaderboard");
-                    }}
-                >
-                    Leaderboard
-                </div>
-
-                <div
-                    className={style.headerItem}
-                    onClick={() => {
-                        router.push("/profile");
-                    }}
-                >
-                    <CgProfile size={30} />
-                </div>
-
-                <div className="ml-4 hover:scale-105 transition-transform duration-300">
-                    <ConnectButton/>
-                </div>
-            </div>
-        </div>
-    );
-}
+export default Navbar;

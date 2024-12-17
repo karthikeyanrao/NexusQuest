@@ -1,22 +1,20 @@
 import express, { type Express } from "express";
 import fs from "fs";
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
+import path from "path";
 import { createServer as createViteServer } from "vite";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 import { type Server } from "http";
-import viteConfig from "../vite.config";
+
+// Handle __dirname and __filename in CommonJS
+const __dirname = path.dirname(__filename); // CommonJS automatically provides __filename
 
 export async function setupVite(app: Express, server: Server) {
   const vite = await createViteServer({
-    ...viteConfig,
-    configFile: false,
     server: {
       middlewareMode: true,
       hmr: { server },
     },
     appType: "custom",
+    // Remove viteConfig and inline the configuration here if needed
   });
 
   app.use(vite.middlewares);
@@ -24,14 +22,9 @@ export async function setupVite(app: Express, server: Server) {
     const url = req.originalUrl;
 
     try {
-      const clientTemplate = path.resolve(
-        __dirname,
-        "..",
-        "client",
-        "index.html"
-      );
+      const clientTemplate = path.resolve(__dirname, "..", "client", "index.html");
 
-      // always reload the index.html file from disk incase it changes
+      // Always reload index.html from disk in case it changes
       const template = await fs.promises.readFile(clientTemplate, "utf-8");
       const page = await vite.transformIndexHtml(url, template);
       res.status(200).set({ "Content-Type": "text/html" }).end(page);
@@ -53,7 +46,7 @@ export function serveStatic(app: Express) {
 
   app.use(express.static(distPath));
 
-  // fall through to index.html if the file doesn't exist
+  // Fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
     res.sendFile(path.resolve(distPath, "index.html"));
   });

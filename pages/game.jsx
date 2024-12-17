@@ -137,7 +137,7 @@ const GamePage = () => {
     setShowModal(false);
     try {
       handleStake();
-      window.location.href = 'http://localhost:3000/';
+      window.location.href = '.\Game\Play1';
     } catch (error) {
       console.error("handleStake: ", error);
     }

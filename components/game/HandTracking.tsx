@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useToast } from './use-toast';
-import { cn } from '@/lib/utils';
 import { gameConfig } from './gameConfig';
 import React from 'react';
 
@@ -65,7 +64,7 @@ export function HandTracking() {
         });
 
         if (!isMounted) return;
-        
+
         videoRef.current.srcObject = stream;
         await new Promise<void>((resolve) => {
           if (videoRef.current) {
@@ -167,10 +166,9 @@ export function HandTracking() {
     <div className="fixed bottom-4 left-4 w-32 h-24 overflow-hidden rounded-lg bg-black/20 backdrop-blur-sm border border-primary/20">
       <video
         ref={videoRef}
-        className={cn(
-          "w-full h-full object-cover transition-opacity duration-300",
-          isInitialized ? "opacity-50" : "opacity-25"
-        )}
+        className={`w-full h-full object-cover transition-opacity duration-300 ${
+          isInitialized ? 'opacity-50' : 'opacity-25'
+        }`}
         playsInline
         autoPlay
         muted
