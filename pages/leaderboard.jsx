@@ -1,21 +1,21 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import CardSlider from "@/components/Card/CardSlider";
+import CardSlider from "../components/Card/CardSlider";
 import { FaTrophy, FaUsers, FaCoins, FaMedal, FaGamepad, FaChartLine } from 'react-icons/fa';
 
 export default function Leaderboard() {
   const [leaderboardData] = useState({
     matchId: '#127',
     totalParticipants: 50,
-    prizePool: '25 SUI',
+    prizePool: '25 ETH',
     yourScore:297,
     yourRank: 3,
     topPlayers: [
-      { rank: 1, username: 'Karthikeyan', score: 247, prize: '10 SUI' },
-      { rank: 2, username: 'Padmaja', score: 232, prize: '7 SUI' },
-      { rank: 3, username: 'Harsha', score: 186, prize: '5 SUI' },
-      { rank: 4, username: 'Rakshika', score: 175, prize: '2 SUI' },
-      { rank: 5, username: 'gamer', score: 164, prize: '1 SUI' },
+      { rank: 1, username: 'Karthikeyan', score: 247, prize: '10 ETH' },
+      { rank: 2, username: 'Padmaja', score: 232, prize: '7 ETH' },
+      { rank: 3, username: 'Harsha', score: 186, prize: '5 ETH' },
+      { rank: 4, username: 'Rakshika', score: 175, prize: '2 ETH' },
+      { rank: 5, username: 'gamer', score: 164, prize: '1 ETH' },
     ]
   });
 

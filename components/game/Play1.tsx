@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { scoreAtom } from './game';
-import { Canvas } from './Canvas';
+
 import { HandTracking } from './HandTracking';
 import { Score } from './Score';
-
+import { Canvas } from './Canvas';
 export function Play1() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [score, setScore] = useRecoilState(scoreAtom);

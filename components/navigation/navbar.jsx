@@ -44,7 +44,7 @@ const Navbar = () => {
   return (
     <div className="p-4 flex justify-between items-center bg-black text-white h-24">
       {/* Logo Section */}
-      <Link href="/">
+      <Link href="/home">
         <div className="flex items-center cursor-pointer">
           <Image
             src="/images/logo-betting.png"
@@ -60,7 +60,7 @@ const Navbar = () => {
       <div className="flex space-x-12">
         <div
           className="cursor-pointer text-lg font-semibold hover:text-[#F3BA2F] transition-colors"
-          onClick={() => router.push("/")}
+          onClick={() => router.push("/home")}
         >
           Explore
         </div>

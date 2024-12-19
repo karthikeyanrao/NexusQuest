@@ -1,11 +1,15 @@
-"use client";
-import React from "react";
-import { OktoProvider, BuildType } from "okto-sdk-react";
+// "use client";
+// import React, { ReactNode } from "react";
+// import { OktoProvider, BuildType } from "okto-sdk-react";
 
-export const OktoWalletProvider = ({ children }) => {
-  return (
-      <OktoProvider apiKey={process.env.NEXT_PUBLIC_OKTO_API_KEY} buildType={BuildType.SANDBOX}>
-        {children}
-      </OktoProvider>
-  );
-};
+// interface OktoWalletProviderProps {
+//   children: ReactNode;
+// }
+
+// export const OktoWalletProvider: React.FC<OktoWalletProviderProps> = ({ children }) => {
+//   return (
+//     <OktoProvider apiKey={process.env.NEXT_PUBLIC_OKTO_API_KEY!} buildType={BuildType.SANDBOX}>
+//       {children}
+//     </OktoProvider>
+//   );
+// };

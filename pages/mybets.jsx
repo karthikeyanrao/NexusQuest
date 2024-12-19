@@ -1,7 +1,8 @@
 import React from 'react';
 import { atom, useAtom } from 'jotai'
-import { walletAddressAtom } from "@/lib/state";
-import CardSlider from "@/components/Card/CardSlider";
+import {walletAddressAtom} from '../lib/state';
+import CardSlider from "../components/Card/CardSlider";
+
 
 const BetsHistory = () => {
   const betsData = [

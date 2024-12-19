@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
-import { walletAddressAtom } from "@/lib/state";
+import { walletAddressAtom } from "../lib/state";
 import { motion } from 'framer-motion';
 import { FaTrophy, FaGamepad, FaClock, FaUsers, FaCoins, FaRegClock } from 'react-icons/fa';
-import { useOkto } from 'okto-sdk-react';
+import detectEthereumProvider from '@metamask/detect-provider';
+import { Play1 } from '../components/Game/Play1';
+
 
 const GamePage = () => {
   const router = useRouter();
-  const [walletAddress] = useAtom(walletAddressAtom);
+  const [walletAddress, setWalletAddress] = useAtom(walletAddressAtom);
   const [nextGameTime, setNextGameTime] = useState(180); // 3 minutes in seconds
   const [currentEvents, setCurrentEvents] = useState([]);
   const [pastEvents, setPastEvents] = useState([]);
@@ -17,7 +19,20 @@ const GamePage = () => {
   const [selectedMode, setSelectedMode] = useState('');
   const [processing, setProcessing] = useState(false);
 
-  const { isLoggedIn, executeRawTransaction } = useOkto();
+  useEffect(() => {
+    const connectWallet = async () => {
+      const provider = await detectEthereumProvider();
+      if (provider) {
+        // Check if MetaMask is installed
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setWalletAddress(accounts[0]); // Update the wallet address atom
+        console.log("Connected account:", accounts[0]);
+      } else {
+        console.error("MetaMask not detected");
+      }
+    };
+    connectWallet();
+  }, [setWalletAddress]);
 
   // Generate mock events data
   useEffect(() => {
@@ -28,15 +43,15 @@ const GamePage = () => {
       const future = [];
 
       // Generate past events
-      for (let i = 1; i <= 5; i++) {
-        const startTime = new Date(now.getTime() - (i * 5 * 60 * 1000));
+      for (let i = 1; i <= 3; i++) {
+        const startTime = new Date(now.getTime() - i * 5 * 60 * 1000);
         past.push({
           id: `past-${i}`,
           startTime,
           players: Math.floor(Math.random() * 50) + 20,
           prizePool: Math.floor(Math.random() * 1000) + 500,
           winner: `Player${Math.floor(Math.random() * 100)}`,
-          highScore: Math.floor(Math.random() * 200) + 100
+          highScore: Math.floor(Math.random() * 200) + 100,
         });
       }
 
@@ -46,18 +61,18 @@ const GamePage = () => {
         startTime: now,
         players: Math.floor(Math.random() * 50) + 20,
         prizePool: Math.floor(Math.random() * 1000) + 500,
-        timeRemaining: Math.floor(Math.random() * 300)
+        timeRemaining: Math.floor(Math.random() * 300),
       });
 
       // Generate future events
-      for (let i = 1; i <= 5; i++) {
-        const startTime = new Date(now.getTime() + (i * 5 * 60 * 1000));
+      for (let i = 1; i <= 3; i++) {
+        const startTime = new Date(now.getTime() + i * 5 * 60 * 1000);
         future.push({
           id: `future-${i}`,
           startTime,
           players: Math.floor(Math.random() * 50) + 20,
           prizePool: Math.floor(Math.random() * 1000) + 500,
-          registeredPlayers: Math.floor(Math.random() * 30)
+          registeredPlayers: Math.floor(Math.random() * 30),
         });
       }
 
@@ -93,53 +108,24 @@ const GamePage = () => {
     return new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  async function handleStake() {
-    if (!isLoggedIn) {
-      throw new Error("Wallet not initialized");
-    }
-    setIsLoading(true);
-    const createStakeData = {
-      id: getRandomId(),
-      amount: Number(amount),
-      timeleft: timeLeft,
-      maxClaims: Number(maxClaims),
-      ownerName: userName,
-      desc: desc,
-    };
-     console.log("CreateLifafaData: ", createLifafaData);
-     console.log("walletpublickey", walletPublicKey.toString());
-    try {
-      const rawTxn = await createStake(
-        createStakeData.id,
-        createStakeData.amount * 10 ** selectedToken.decimals,
-        createStakeData.timeleft,
-        createStakeData.maxClaims,
-        createStakeData.ownerName,
-        createStakeData.desc,
-        ClaimMode.Random,
-        new PublicKey(selectedToken.address),
-        walletPublicKey,
-      );
-      const txnHash = await executeRawTransaction(rawTxn);
-      console.log("txnHash: ", txnHash);
-    } catch (error) {
-      console.error("could not stake: ", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   const handlePayment = async (amount) => {
+    if (!walletAddress) {
+      alert("Please connect your MetaMask wallet.");
+      return;
+    }
     setProcessing(true);
+
     // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     setProcessing(false);
     setShowModal(false);
+
+    // Placeholder for actual transaction handling
     try {
-      handleStake();
-      window.location.href = '.\Game\Play1';
+      console.log("Processing payment:", amount, "from wallet:", walletAddress);
+      router.push('/Play1');
     } catch (error) {
-      console.error("handleStake: ", error);
+      console.error("Payment failed:", error);
     }
   };
 
@@ -226,7 +212,7 @@ const GamePage = () => {
             <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">Live Now</h3>
             {currentEvents.map(event => (
               <motion.div 
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.02   }}
                 key={event.id} 
                 className="bg-gradient-to-r from-indigo-900/40 to-indigo-800/40 rounded-xl p-6 border-2 border-indigo-500/30 shadow-lg backdrop-blur-sm relative overflow-hidden group"
               >
@@ -244,7 +230,7 @@ const GamePage = () => {
                   <span className="text-emerald-400 font-bold text-lg">${event.prizePool}</span>
                 </div>
                 <motion.button 
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.02, cursor: 'not-allowed' }}
                   whileTap={{ scale: 0.98 }}
                   className="w-full bg-indigo-600/20 text-indigo-300 py-3 rounded-xl border border-indigo-500/30 backdrop-blur-sm font-semibold relative overflow-hidden group hover:bg-indigo-600/30 transition-colors duration-300"
                 >

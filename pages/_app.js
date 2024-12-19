@@ -11,12 +11,22 @@ function getLibrary(provider) {
 }
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+
+  // Define the pages where you don't want to show the navbar
+  const noNavbarPages = ['/create-profile']; 
+
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <RecoilRoot>
-        <MainLayout>
+        {/* Conditionally render MainLayout based on the current route */}
+        {noNavbarPages.includes(router.pathname) ? (
           <Component {...pageProps} />
-        </MainLayout>
+        ) : (
+          <MainLayout>
+            <Component {...pageProps} />
+          </MainLayout>
+        )}
       </RecoilRoot>
     </Web3ReactProvider>
   );

@@ -1,24 +1,19 @@
-import { OktoWalletProvider } from "@/providers/OktoWalletProvider";
+import React from "react";
 import Navbar from "../components/navigation/navbar";
-import {WalletProvider} from '@suiet/wallet-kit';
-import '@suiet/wallet-kit/style.css';
-import dynamic from 'next/dynamic';
-
-// Dynamically import WalletProvider with ssr disabled to avoid useLayoutEffect warning
-const WalletProviderNoSSR = dynamic(
-  () => import('@suiet/wallet-kit').then((mod) => mod.WalletProvider),
-  { ssr: false }
-);
 
 export default function MainLayout({ children }) {
-	return (
-		<div>
-			<WalletProviderNoSSR>
-				<OktoWalletProvider>
-					<Navbar />
-					{children}
-				</OktoWalletProvider>
-			</WalletProviderNoSSR>
-		</div>
-	);
+  return (
+    <div className="bg-gray-900 text-white min-h-screen flex flex-col">
+      {/* Navbar Component */}
+      <Navbar />
+      
+      {/* Main Content */}
+      <main className="flex-grow p-4">{children}</main>
+      
+      {/* Footer */}
+      <footer className="bg-black text-center p-4 text-sm">
+        © {new Date().getFullYear()} Betting Platform. NEXUSQUEST. All rights reserved.
+      </footer>
+    </div>
+  );
 }
