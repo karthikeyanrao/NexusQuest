@@ -18,7 +18,7 @@
       const betsData = [
         { 
           tournamentId: "T-2024-001",
-          matchId: "M-458",
+          matchId: "M-468",
           stake: 190,
           rank: 3,
           score: 57,
@@ -48,7 +48,7 @@
         },
         {
           tournamentId: "T-2024-020",
-          matchId: "M-459", 
+          matchId: "M-455", 
           stake: 250,
           rank: 2,
           score: 96,
@@ -58,7 +58,7 @@
         },
         {
           tournamentId: "T-2024-023",
-          matchId: "M-459", 
+          matchId: "M-449", 
           stake: 400,
           rank: 4,
           score: 82,
@@ -68,7 +68,7 @@
         },
         {
           tournamentId: "T-2024-032",
-          matchId: "M-459", 
+          matchId: "M-427", 
           stake: 170,
           rank: 2,
           score: 97,
@@ -78,7 +78,7 @@
         },
         {
           tournamentId: "T-2024-082", 
-          matchId: "M-461",
+          matchId: "M-401",
           stake: 30,
           rank: 5,
           score: 75,
