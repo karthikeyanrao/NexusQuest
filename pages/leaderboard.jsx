@@ -41,7 +41,7 @@ export default function Leaderboard() {
         const updatedTopPlayers = [...prevData.topPlayers];
 
         // Find 'You' in the leaderboard
-        const playerIndex = updatedTopPlayers.findIndex(player => player.username === 'You');
+        const playerIndex = updatedTopPlayers.findIndex(player => player.username === 'Karthikeyan');
 
         if (playerIndex !== -1) {
           // Update 'You' score
@@ -50,7 +50,7 @@ export default function Leaderboard() {
           // Add 'You' to the leaderboard if not present
           updatedTopPlayers.push({
             rank: 0, // Recalculated later
-            username: 'You',
+            username: 'Karthikeyan',
             score: newScore,
             prize: '5 ETH',
           });
@@ -72,8 +72,8 @@ export default function Leaderboard() {
 
         return {
           ...prevData,
-          yourScore: recalculatedPlayers.find(player => player.username === 'You')?.score || 0,
-          yourRank: recalculatedPlayers.findIndex(player => player.username === 'You') + 1,
+          yourScore: recalculatedPlayers.find(player => player.username === 'Karthikeyan')?.score || 0,
+          yourRank: recalculatedPlayers.findIndex(player => player.username === 'Karthikeyan') + 1,
           topPlayers: recalculatedPlayers.slice(0, 8),
         };
       });

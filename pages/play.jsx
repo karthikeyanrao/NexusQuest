@@ -101,7 +101,7 @@ const PlayPage = () => {
               <div
                 key={index}
                 onClick={
-                  game === 'flappy'
+                  game === 'Flappy'
                     ? goToFlappy
                     : game === 'XO'
                     ? goToXO

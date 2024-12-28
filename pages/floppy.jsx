@@ -5,7 +5,7 @@
     const gameHeight = 500;
     const gameWidth = 800;
     const birdSize = 50;
-    const obstacleWidth = 60;
+    const obstacleWidth = 70;
     const jumpHeight = 70;
     const gravity = 5;
 
@@ -104,7 +104,7 @@
       let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
     
       // Add a new entry for the current game
-      leaderboard.push({ name: "You", score });
+      leaderboard.push({ name: "Karthikeyan", score });
     
       // Sort leaderboard in descending order of scores
       leaderboard.sort((a, b) => b.score - a.score);
@@ -141,7 +141,7 @@
         <div
           style={{
             height: birdSize,
-            width: birdSize,
+            width: birdSize+10,
             backgroundImage: `url(.//images/bird.png)`,
             backgroundSize: "cover",
             position: "absolute",
@@ -154,11 +154,11 @@
         <div
           style={{
             position: "absolute",
-            top: 0,
+            top: -7,
             left: obstaclePosition,
             height: obstacleHeight,
-            width: obstacleWidth,
-            backgroundImage: `url(.//images/pipe.png)`,
+            width: obstacleWidth+20,
+            backgroundImage: `url(.//images/pipet.png)`,
             backgroundSize: "cover",
           }}
         ></div>

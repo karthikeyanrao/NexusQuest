@@ -2,11 +2,11 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAtomValue } from 'jotai';
-import { walletAddressAtom } from '../lib/state';
+import { syncedWalletAddressAtom } from '../lib/state';
 
 const Profile = () => {
     const router = useRouter();
-    const walletAddress = useAtomValue(walletAddressAtom);
+     const walletAddress = useAtomValue(syncedWalletAddressAtom);
 
     const [userProfile, setUserProfile] = useState({
         username: 'Karthikeyan',
